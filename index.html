@@ -9,6 +9,7 @@
     <style>
         .gradient-bg { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); }
         .accent-gradient { background: linear-gradient(90deg, #3b82f6 0%, #2dd4bf 100%); }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
     </style>
 </head>
 <body class="bg-slate-900 text-white font-sans selection:bg-blue-500/30">
@@ -21,7 +22,6 @@
         <div class="hidden md:flex space-x-8 text-sm font-medium text-slate-400">
             <a href="#projections" class="hover:text-white transition">Projections</a>
             <a href="#calculator" class="hover:text-white transition">Calculator</a>
-            <a href="#roadmap" class="hover:text-white transition">Roadmap</a>
         </div>
     </nav>
 
@@ -32,40 +32,36 @@
         </h1>
         <p class="text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
             ECHO Care is a clinical growth platform designed for operational excellence. 
-            Explore our 12-month trajectory and calculate your potential returns.
+            Explore our trajectory and calculate potential returns across multiple sites.
         </p>
-        <div class="flex justify-center space-x-4">
-            <a href="#calculator" class="px-8 py-4 accent-gradient rounded-full font-bold hover:scale-105 transition shadow-lg shadow-blue-500/20">
-                View ROI Calculator
-            </a>
-        </div>
     </header>
 
-    <!-- 6-Month Trajectory Section -->
+    <!-- 6-Month Trajectory Section (RESTORED FROM IMAGE) -->
     <section id="projections" class="max-w-6xl mx-auto py-20 px-6 border-t border-slate-800">
         <div class="flex flex-col md:flex-row gap-16 items-center">
             <div class="flex-1">
-                <h2 class="text-4xl font-bold mb-6">Painting the Picture:<br>The First 6 Months</h2>
+                <h2 class="text-4xl font-bold mb-6 tracking-tight">Painting the Picture:<br>The First 6 Months</h2>
                 <p class="text-slate-400 mb-8 leading-relaxed">
                     Our model leverages a "Credentialing Cliff" and rapid patient acquisition to hit positive cash flow in record time.
                 </p>
-                <div class="space-y-4">
-                    <div class="flex items-center space-x-4 p-4 bg-slate-800/50 rounded-xl border border-slate-700">
-                        <div class="w-10 h-10 flex items-center justify-center bg-blue-500/20 text-blue-400 rounded-full font-bold">1</div>
+                <div class="space-y-6">
+                    <div class="flex items-center space-x-4 p-5 bg-slate-800/40 rounded-2xl border border-slate-700/50 hover:bg-slate-800/60 transition group">
+                        <div class="w-10 h-10 flex items-center justify-center bg-blue-500/20 text-blue-400 rounded-full font-bold group-hover:scale-110 transition">1</div>
                         <p class="text-sm font-medium">Month 1-2: Infrastructure & Setup</p>
                     </div>
-                    <div class="flex items-center space-x-4 p-4 bg-slate-800/50 rounded-xl border border-slate-700">
-                        <div class="w-10 h-10 flex items-center justify-center bg-teal-500/20 text-teal-400 rounded-full font-bold">3</div>
+                    <div class="flex items-center space-x-4 p-5 bg-slate-800/40 rounded-2xl border border-teal-500/30 hover:bg-slate-800/60 transition group">
+                        <div class="w-10 h-10 flex items-center justify-center bg-teal-500/20 text-teal-400 rounded-full font-bold group-hover:scale-110 transition">3</div>
                         <p class="text-sm font-medium text-teal-400">Month 3: Break-Even Achievement</p>
                     </div>
-                    <div class="flex items-center space-x-4 p-4 bg-slate-800/50 rounded-xl border border-slate-700">
-                        <div class="w-10 h-10 flex items-center justify-center bg-purple-500/20 text-purple-400 rounded-full font-bold">6+</div>
+                    <div class="flex items-center space-x-4 p-5 bg-slate-800/40 rounded-2xl border border-slate-700/50 hover:bg-slate-800/60 transition group">
+                        <div class="w-10 h-10 flex items-center justify-center bg-purple-500/20 text-purple-400 rounded-full font-bold group-hover:scale-110 transition">6+</div>
                         <p class="text-sm font-medium">Scaling to $21k+ Monthly Profit</p>
                     </div>
                 </div>
             </div>
-            <div class="flex-1 w-full bg-slate-800/30 p-8 rounded-3xl border border-slate-700 shadow-inner">
-                <canvas id="growthChart"></canvas>
+            <div class="flex-1 w-full bg-slate-950/40 p-10 rounded-[2.5rem] border border-slate-800 shadow-inner relative">
+                <div class="absolute inset-0 bg-blue-500/5 blur-3xl rounded-full"></div>
+                <canvas id="growthChart" class="relative z-10"></canvas>
             </div>
         </div>
     </section>
@@ -74,8 +70,8 @@
     <section id="calculator" class="bg-slate-800/50 py-24 px-6 border-y border-slate-800">
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold mb-4">Interactive Financial Roadmap</h2>
-                <p class="text-slate-400">Select a month and partner count to see detailed income, expenses, and dividends.</p>
+                <h2 class="text-4xl font-bold mb-4">Financial Projections</h2>
+                <p class="text-slate-400">Adjust the sliders to see specific monthly overhead and dividend potential.</p>
             </div>
             
             <div class="bg-slate-900 p-10 rounded-[2.5rem] border border-blue-500/20 shadow-2xl relative overflow-hidden">
@@ -83,70 +79,129 @@
                 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 relative z-10">
                     <!-- Controls -->
-                    <div class="space-y-10">
-                        <div>
-                            <div class="flex justify-between items-end mb-4">
-                                <label class="text-sm font-bold uppercase tracking-widest text-slate-500">Timeline: <span id="monthLabel" class="text-blue-400">Month 6</span></label>
-                            </div>
+                    <div class="space-y-8">
+                        <div class="p-5 bg-slate-800/20 rounded-2xl border border-slate-700/50">
+                            <label class="text-[10px] font-bold uppercase tracking-widest text-slate-500 block mb-3">Timeline: <span id="monthLabel" class="text-blue-400">Month 6</span></label>
                             <input type="range" id="monthSlider" min="1" max="12" value="6" 
-                                class="w-full h-3 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-blue-500">
-                            <div class="flex justify-between mt-2 text-[10px] text-slate-600 font-bold">
-                                <span>LAUNCH</span>
-                                <span>YEAR 1 PEAK</span>
-                            </div>
+                                class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-blue-500">
                         </div>
 
-                        <div>
-                            <div class="flex justify-between items-end mb-4">
-                                <label class="text-sm font-bold uppercase tracking-widest text-slate-500">Board Size: <span id="partnerCountLabel" class="text-teal-400">6 Partners</span></label>
-                            </div>
+                        <div class="p-5 bg-slate-800/20 rounded-2xl border border-slate-700/50">
+                            <label class="text-[10px] font-bold uppercase tracking-widest text-slate-500 block mb-3">Board Size: <span id="partnerCountLabel" class="text-teal-400">6 Partners</span></label>
                             <input type="range" id="partnerSlider" min="1" max="12" value="6" 
-                                class="w-full h-3 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-teal-500">
+                                class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-teal-500">
                         </div>
 
-                        <div>
-                            <div class="flex justify-between items-end mb-4">
-                                <label class="text-sm font-bold uppercase tracking-widest text-slate-500">Expansion Scale: <span id="clinicCountLabel" class="text-purple-400">1 Clinic</span></label>
-                            </div>
+                        <div class="p-5 bg-slate-800/20 rounded-2xl border border-slate-700/50">
+                            <label class="text-[10px] font-bold uppercase tracking-widest text-slate-500 block mb-3">Scale: <span id="clinicCountLabel" class="text-purple-400">1 Clinic</span></label>
                             <input type="range" id="clinicSlider" min="1" max="2" value="1" 
-                                class="w-full h-3 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-500">
-                            <div class="flex justify-between mt-2 text-[10px] text-slate-600 font-bold">
-                                <span>SINGLE SITE</span>
-                                <span>HOUSTON + DALLAS</span>
+                                class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-500">
+                            <div class="flex justify-between mt-2 text-[10px] text-slate-600 font-bold uppercase">
+                                <span>Single Site</span>
+                                <span>2 Clinics (Double)</span>
+                            </div>
+                        </div>
+
+                        <!-- High Level Summary -->
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="p-4 bg-slate-800/40 rounded-xl border border-slate-700">
+                                <p class="text-slate-500 text-[9px] font-bold uppercase mb-1">Monthly Revenue</p>
+                                <p id="totalRev" class="text-xl font-bold text-white">$0</p>
+                            </div>
+                            <div class="p-4 bg-slate-800/40 rounded-xl border border-slate-700">
+                                <p class="text-slate-500 text-[9px] font-bold uppercase mb-1">Monthly Overhead</p>
+                                <p id="totalExp" class="text-xl font-bold text-white">$0</p>
+                            </div>
+                            <div class="p-6 bg-blue-500/10 rounded-2xl border border-blue-500/20 col-span-2 text-center">
+                                <p class="text-blue-400 text-[10px] font-bold uppercase mb-1">Monthly Dividend (Per Partner)</p>
+                                <p id="partnerProfit" class="text-4xl font-black text-white">$0</p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Monthly Metrics -->
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="p-6 bg-slate-800/40 rounded-2xl border border-slate-700">
-                            <p class="text-slate-500 text-[10px] font-bold uppercase mb-1">Total Revenue</p>
-                            <p id="totalRev" class="text-2xl font-bold text-white">$120,650</p>
+                    <!-- Line-by-Line Expense Ledger -->
+                    <div class="bg-slate-950/50 p-6 rounded-3xl border border-slate-800 flex flex-col h-full">
+                        <div class="flex justify-between items-center mb-6 border-b border-slate-800 pb-4">
+                            <h3 class="text-xs font-bold uppercase tracking-widest text-slate-400">Monthly Expense Ledger</h3>
+                            <span id="ledgerMonth" class="text-[10px] bg-blue-500/20 text-blue-400 px-2 py-1 rounded-md font-bold uppercase">Month 6</span>
                         </div>
-                        <div class="p-6 bg-slate-800/40 rounded-2xl border border-slate-700">
-                            <p class="text-slate-500 text-[10px] font-bold uppercase mb-1">Total Expenses</p>
-                            <p id="totalExp" class="text-2xl font-bold text-white">$99,456</p>
-                        </div>
-                        <div class="p-6 bg-slate-800/40 rounded-2xl border border-slate-700 col-span-2 flex justify-between items-center">
-                            <div>
-                                <p class="text-slate-500 text-[10px] font-bold uppercase mb-1">Total Clients (Enrollment)</p>
-                                <p id="totalKids" class="text-2xl font-bold text-blue-400">95 Kids</p>
+                        
+                        <div class="space-y-3 overflow-y-auto max-h-[480px] pr-2 scrollbar-hide">
+                            <!-- Payroll / Clinical -->
+                            <div class="flex justify-between items-center group">
+                                <span class="text-sm text-slate-400 group-hover:text-slate-200 transition">QMHP Pay (w/ Stipend)</span>
+                                <span id="lineQMHP" class="text-sm font-mono text-slate-300">$0</span>
                             </div>
-                            <div class="text-right">
-                                <p class="text-slate-500 text-[10px] font-bold uppercase mb-1">Profit Per Client</p>
-                                <p id="profitPerKid" class="text-lg font-bold text-slate-300">$223</p>
+                            <div class="flex justify-between items-center group">
+                                <span class="text-sm text-slate-400 group-hover:text-slate-200 transition">LPC / LPCA Assessments</span>
+                                <span id="lineAssessments" class="text-sm font-mono text-slate-300">$0</span>
                             </div>
-                        </div>
-                        <div class="p-6 bg-blue-500/10 rounded-2xl border border-blue-500/20 col-span-2">
-                            <div class="flex justify-between items-center">
-                                <div>
-                                    <p class="text-blue-400 text-[10px] font-bold uppercase mb-1">Monthly Dividend (Per Partner)</p>
-                                    <p id="partnerProfit" class="text-4xl font-black text-white">$3,532</p>
-                                </div>
-                                <div class="text-right">
-                                    <p class="text-slate-500 text-[10px] font-bold uppercase mb-1">Clinic Net Profit</p>
-                                    <p id="clinicNet" class="text-xl font-bold text-slate-300">$21,194</p>
-                                </div>
+                            <div class="flex justify-between items-center group">
+                                <span class="text-sm text-slate-400 group-hover:text-slate-200 transition">LPC Pay (Supervision)</span>
+                                <span id="lineLPCPay" class="text-sm font-mono text-slate-300">$0</span>
+                            </div>
+                            <div class="flex justify-between items-center group">
+                                <span class="text-sm text-slate-400 group-hover:text-slate-200 transition">Admin Hourly Staffing</span>
+                                <span id="lineAdmin" class="text-sm font-mono text-slate-300">$0</span>
+                            </div>
+
+                            <!-- Fixed Operations -->
+                            <div class="flex justify-between items-center group">
+                                <span class="text-sm text-slate-400 group-hover:text-slate-200 transition">Office Rent</span>
+                                <span id="lineRent" class="text-sm font-mono text-slate-300">$0</span>
+                            </div>
+                            <div class="flex justify-between items-center group">
+                                <span class="text-sm text-slate-400 group-hover:text-slate-200 transition">Operations & Facility</span>
+                                <span id="lineOps" class="text-sm font-mono text-slate-300">$0</span>
+                            </div>
+                            <div class="flex justify-between items-center group">
+                                <span class="text-sm text-slate-400 group-hover:text-slate-200 transition">Liability Insurance</span>
+                                <span id="lineLiability" class="text-sm font-mono text-slate-300">$0</span>
+                            </div>
+                            <div class="flex justify-between items-center group">
+                                <span class="text-sm text-slate-400 group-hover:text-slate-200 transition">Office Phone & Internet</span>
+                                <span id="linePhone" class="text-sm font-mono text-slate-300">$0</span>
+                            </div>
+
+                            <!-- Marketing & Growth -->
+                            <div class="flex justify-between items-center group">
+                                <span class="text-sm text-slate-400 group-hover:text-slate-200 transition">Marketing & AI Systems</span>
+                                <span id="lineMarketingAI" class="text-sm font-mono text-slate-300">$0</span>
+                            </div>
+                            <div class="flex justify-between items-center group">
+                                <span class="text-sm text-slate-400 group-hover:text-slate-200 transition">Community Outreach</span>
+                                <span id="lineOutreach" class="text-sm font-mono text-slate-300">$0</span>
+                            </div>
+                            <div class="flex justify-between items-center group">
+                                <span class="text-sm text-slate-400 group-hover:text-slate-200 transition">Marketing Supplies</span>
+                                <span id="lineMarkSupplies" class="text-sm font-mono text-slate-300">$0</span>
+                            </div>
+
+                            <!-- Variable / Compliance -->
+                            <div class="flex justify-between items-center group">
+                                <span class="text-sm text-slate-400 group-hover:text-slate-200 transition">Credentialing Fees</span>
+                                <span id="lineCredentialing" class="text-sm font-mono text-slate-300">$0</span>
+                            </div>
+                            <div class="flex justify-between items-center group">
+                                <span class="text-sm text-slate-400 group-hover:text-slate-200 transition">Intake Fees</span>
+                                <span id="lineIntake" class="text-sm font-mono text-slate-300">$0</span>
+                            </div>
+                            <div class="flex justify-between items-center group">
+                                <span class="text-sm text-slate-400 group-hover:text-slate-200 transition">Background Checks</span>
+                                <span id="lineBackground" class="text-sm font-mono text-slate-300">$0</span>
+                            </div>
+                            <div class="flex justify-between items-center group">
+                                <span class="text-sm text-slate-400 group-hover:text-slate-200 transition">Drug Testing</span>
+                                <span id="lineDrug" class="text-sm font-mono text-slate-300">$0</span>
+                            </div>
+                            <div class="flex justify-between items-center group">
+                                <span class="text-sm text-slate-400 group-hover:text-slate-200 transition">Misc. Monthly Expenses</span>
+                                <span id="lineMisc" class="text-sm font-mono text-slate-300">$0</span>
+                            </div>
+                            
+                            <div class="pt-4 mt-4 border-t border-slate-800 flex justify-between items-center">
+                                <span class="text-xs font-bold text-slate-500 uppercase">Total Monthly Burn</span>
+                                <span id="ledgerTotal" class="text-lg font-bold text-white">$0</span>
                             </div>
                         </div>
                     </div>
@@ -156,74 +211,94 @@
     </section>
 
     <!-- Footer -->
-    <!-- Footer -->
     <footer class="py-12 px-6 text-center text-slate-500 text-xs uppercase tracking-[0.2em]">
         &copy; 2026 ECHO Care Financial Platform &bull; Proprietary & Confidential
     </footer>
 
     <script>
-        // Updated Data to match your sheet: Month 6 Net Profit = $47,562 ($7,927 * 6)
-        // Adjusting other months proportionally based on your new profit margin
+        // Specific Monthly Projection Data (for 1 clinic)
         const financialData = {
-            1: { rev: 0, exp: 10250, net: -10250, kids: 0 },
-            2: { rev: 19050, exp: 12000, net: 7050, kids: 15 },
-            3: { rev: 44450, exp: 28000, net: 16450, kids: 35 },
-            4: { rev: 69850, exp: 40000, net: 29850, kids: 55 },
-            5: { rev: 95250, exp: 55000, net: 40250, kids: 75 },
-            6: { rev: 120650, exp: 73088, net: 47562, kids: 95 },
-            7: { rev: 146050, exp: 88000, net: 58050, kids: 115 },
-            8: { rev: 171450, exp: 103000, net: 68450, kids: 135 },
-            9: { rev: 196850, exp: 118000, net: 78850, kids: 155 },
-            10: { rev: 222250, exp: 133000, net: 89250, kids: 175 },
-            11: { rev: 247650, exp: 148000, net: 99650, kids: 195 },
-            12: { rev: 273050, exp: 163000, net: 110050, kids: 215 }
+            1: { kids: 0, rev: 0 },
+            2: { kids: 15, rev: 19050 },
+            3: { kids: 35, rev: 44450 },
+            4: { kids: 55, rev: 69850 },
+            5: { kids: 75, rev: 95250 },
+            6: { kids: 95, rev: 120650 },
+            7: { kids: 115, rev: 146050 },
+            8: { kids: 135, rev: 171450 },
+            9: { kids: 155, rev: 196850 },
+            10: { kids: 175, rev: 222250 },
+            11: { kids: 195, rev: 247650 },
+            12: { kids: 215, rev: 273050 }
+        };
+
+        const baseExpenses = {
+            phone: 306, rent: 1650, liability: 1600, ops: 2250, admin: 3500,
+            credentialing: 1000, marketingAI: 5000, markSupplies: 1000,
+            outreach: 1000, misc: 306, lpcPay: 3750
         };
 
         const monthSlider = document.getElementById('monthSlider');
         const partnerSlider = document.getElementById('partnerSlider');
         const clinicSlider = document.getElementById('clinicSlider');
         
-        const monthLabel = document.getElementById('monthLabel');
-        const countLabel = document.getElementById('partnerCountLabel');
-        const clinicLabel = document.getElementById('clinicCountLabel');
-        
-        const totalRev = document.getElementById('totalRev');
-        const totalExp = document.getElementById('totalExp');
-        const totalKids = document.getElementById('totalKids');
-        const profitPerKid = document.getElementById('profitPerKid');
-        const clinicNet = document.getElementById('clinicNet');
-        const partnerProfit = document.getElementById('partnerProfit');
-
-        function updateCalculator() {
+        function updateUI() {
             const m = monthSlider.value;
             const p = partnerSlider.value;
             const c = clinicSlider.value;
             const data = financialData[m];
-            
             const multiplier = parseInt(c);
-            const totalNet = data.net * multiplier;
-            const individualDividend = Math.round(totalNet / p);
-            const ppk = data.kids > 0 ? Math.round(data.net / data.kids) : 0;
 
-            monthLabel.innerText = `Month ${m}`;
-            countLabel.innerText = `${p} Partners`;
-            clinicLabel.innerText = multiplier === 2 ? '2 Clinics (Houston + Dallas)' : '1 Clinic';
+            // Scale variables
+            const intake = (900 * (data.kids / 10)) * multiplier;
+            const assessments = (2250 * (data.kids / 10)) * multiplier;
+            const qmhpPay = (5400 * (data.kids / 30)) * multiplier;
+            const background = (200 * (data.kids / 10)) * multiplier;
+            const drug = (50 * (data.kids / 10)) * multiplier;
+
+            const totalMonthlyExp = multiplier * (baseExpenses.phone + baseExpenses.rent + baseExpenses.liability + baseExpenses.ops + baseExpenses.admin + baseExpenses.credentialing + baseExpenses.marketingAI + baseExpenses.markSupplies + baseExpenses.outreach + baseExpenses.misc + baseExpenses.lpcPay) + qmhpPay + assessments + background + drug + intake;
+            const totalRevVal = data.rev * multiplier;
+
+            document.getElementById('monthLabel').innerText = `Month ${m}`;
+            document.getElementById('ledgerMonth').innerText = `Month ${m}`;
+            document.getElementById('partnerCountLabel').innerText = `${p} Partners`;
+            document.getElementById('clinicCountLabel').innerText = `${multiplier} Clinic${multiplier > 1 ? 's' : ''}`;
+
+            document.getElementById('totalRev').innerText = `$${totalRevVal.toLocaleString()}`;
+            document.getElementById('totalExp').innerText = `$${Math.round(totalMonthlyExp).toLocaleString()}`;
             
-            totalRev.innerText = `$${(data.rev * multiplier).toLocaleString()}`;
-            totalExp.innerText = `$${(data.exp * multiplier).toLocaleString()}`;
-            totalKids.innerText = `${(data.kids * multiplier)} Kids`;
-            profitPerKid.innerText = `$${ppk}`;
-            clinicNet.innerText = `$${totalNet.toLocaleString()}`;
-            
-            partnerProfit.innerText = `$${individualDividend.toLocaleString()}`;
-            partnerProfit.style.color = individualDividend < 0 ? '#f87171' : '#fff';
-            clinicNet.style.color = totalNet < 0 ? '#f87171' : '#cbd5e1';
+            const net = totalRevVal - totalMonthlyExp;
+            const dividend = Math.round(net / p);
+            const divEl = document.getElementById('partnerProfit');
+            divEl.innerText = `$${dividend.toLocaleString()}`;
+            divEl.style.color = dividend < 0 ? '#f87171' : '#fff';
+
+            // Ledger
+            document.getElementById('lineQMHP').innerText = `$${Math.round(qmhpPay).toLocaleString()}`;
+            document.getElementById('lineAssessments').innerText = `$${Math.round(assessments).toLocaleString()}`;
+            document.getElementById('lineLPCPay').innerText = `$${(baseExpenses.lpcPay * multiplier).toLocaleString()}`;
+            document.getElementById('lineAdmin').innerText = `$${(baseExpenses.admin * multiplier).toLocaleString()}`;
+            document.getElementById('lineRent').innerText = `$${(baseExpenses.rent * multiplier).toLocaleString()}`;
+            document.getElementById('lineOps').innerText = `$${(baseExpenses.ops * multiplier).toLocaleString()}`;
+            document.getElementById('lineLiability').innerText = `$${(baseExpenses.liability * multiplier).toLocaleString()}`;
+            document.getElementById('linePhone').innerText = `$${(baseExpenses.phone * multiplier).toLocaleString()}`;
+            document.getElementById('lineMarketingAI').innerText = `$${(baseExpenses.marketingAI * multiplier).toLocaleString()}`;
+            document.getElementById('lineOutreach').innerText = `$${(baseExpenses.outreach * multiplier).toLocaleString()}`;
+            document.getElementById('lineMarkSupplies').innerText = `$${(baseExpenses.markSupplies * multiplier).toLocaleString()}`;
+            document.getElementById('lineCredentialing').innerText = `$${(baseExpenses.credentialing * multiplier).toLocaleString()}`;
+            document.getElementById('lineIntake').innerText = `$${Math.round(intake).toLocaleString()}`;
+            document.getElementById('lineBackground').innerText = `$${Math.round(background).toLocaleString()}`;
+            document.getElementById('lineDrug').innerText = `$${Math.round(drug).toLocaleString()}`;
+            document.getElementById('lineMisc').innerText = `$${(baseExpenses.misc * multiplier).toLocaleString()}`;
+            document.getElementById('ledgerTotal').innerText = `$${Math.round(totalMonthlyExp).toLocaleString()}`;
         }
 
-        monthSlider.oninput = updateCalculator;
-        partnerSlider.oninput = updateCalculator;
-        clinicSlider.oninput = updateCalculator;
+        monthSlider.oninput = updateUI;
+        partnerSlider.oninput = updateUI;
+        clinicSlider.oninput = updateUI;
+        updateUI();
 
+        // Chart restoration with enhanced styling from image
         const ctx = document.getElementById('growthChart').getContext('2d');
         const gradient = ctx.createLinearGradient(0, 0, 0, 400);
         gradient.addColorStop(0, 'rgba(59, 130, 246, 0.4)');
@@ -242,7 +317,6 @@
                     pointBorderColor: '#0f172a',
                     pointBorderWidth: 2,
                     pointRadius: 6,
-                    pointHoverRadius: 8,
                     backgroundColor: gradient,
                     fill: true,
                     tension: 0.4
@@ -251,27 +325,10 @@
             options: {
                 responsive: true,
                 maintainAspectRatio: true,
-                plugins: {
-                    legend: { display: false },
-                    tooltip: {
-                        backgroundColor: '#1e293b',
-                        titleColor: '#3b82f6',
-                        bodyColor: '#fff',
-                        bodyFont: { weight: 'bold' },
-                        displayColors: false,
-                        padding: 12,
-                        cornerRadius: 10
-                    }
-                },
+                plugins: { legend: { display: false } },
                 scales: {
-                    y: {
-                        grid: { color: 'rgba(255, 255, 255, 0.05)' },
-                        ticks: { color: '#64748b', font: { size: 10, weight: 'bold' } }
-                    },
-                    x: {
-                        grid: { display: false },
-                        ticks: { color: '#64748b', font: { size: 10, weight: 'bold' } }
-                    }
+                    y: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#64748b' } },
+                    x: { grid: { display: false }, ticks: { color: '#64748b' } }
                 }
             }
         });
